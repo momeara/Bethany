@@ -17,3 +17,37 @@ date_code <- function(d=NA){
 
 #' @importFrom magrittr %>%
 NULL
+
+
+#' Returns TRUE if no values are duplicated
+#'
+#' This function tests if values in the sepcified columns have no
+#' duplicate values. This the inverse of
+#' \code{\link[base]{duplicated}}. This is a convenience function
+#' meant to be used as a predicate in an \code{\link{assertr}}
+#' verify statment.
+#'
+#' Warning: Since this uses \code{\link[base]{duplicated}}, the columns
+#' are pasted together with '\t', this will fail if any of the
+#' specified columns contain '\t' characters.
+#'
+#' @param ... columns from the data.frame
+#' @return A vector of the same length that is TRUE when the values in
+#' the specified columns are distinct
+#' @seealso \code{\link{duplicated}}
+#' @examples
+#' z <- data.frame(a=c(1,2,3,4,5,6), b=c(1,1,1,3,3,3), c=c(1,2,3,1,2,3))
+#' zz <- z %>% verify(no_duplicates(a))
+#' zz <- z %>% verify(no_duplicates(b))    # verification failed! (4 failures)
+#' zz <- z %>% verify(no_duplicates(c))    # verification failed! (3 failures)
+#' zz <- z %>% verify(no_duplicates(a,b))
+#' zz <- z %>% verify(no_duplicates(a,c))
+#' zz <- z %>% verify(no_duplicates(b,c))
+#' zz <- z %>% verify(no_duplicates(a,b,c))
+#'
+#' @export
+no_duplicates <- function(...){
+    args <- list(...)
+    args$incomparables=F
+    !duplicated.data.frame(args)
+}
