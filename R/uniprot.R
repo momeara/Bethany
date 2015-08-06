@@ -30,7 +30,7 @@ uniprot_entry_web_lookup_debug <- function(
 	content
 }
 
-#http://www.uniprot.org/help/uniprotkb_column_names
+#' See http://www.uniprot.org/help/uniprotkb_column_names for available columns
 uniprot_entry_web_lookup <- function(
 	uniprot_entries,
 	columns,
@@ -55,7 +55,7 @@ uniprot_entry_web_lookup <- function(
 					query=df$uniprot_entry,
 					format = 'tab',
 					columns = column_arg)) %>%
-			httr::content
+				httr::content()
 			if(r %>% is.null){
 				if(verbose){
 					cat(" MISSING\n")
@@ -66,8 +66,8 @@ uniprot_entry_web_lookup <- function(
 					cat(" GOT IT\n")
 				}
 				r %>%
-					readr::read_tsv %>%
-					dyplr::filter(`Entry name` == df$uniprot_entry) %>%
+					readr::read_tsv() %>%
+					dplyr::filter(`Entry name` == df$uniprot_entry) %>%
 					head(1) %>%
 					return
 			}

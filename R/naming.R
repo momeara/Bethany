@@ -16,7 +16,7 @@ hmmer_fasta_to_uniprot_entry <- function(fasta_names){
 # number sequences sequentially in the phylip format XXXX_XXXXX
 generate_phylip_names <- function(n){
 	a <- 1:n %>% as.character %>% stringr::str_pad(9, pad="0")
-	paste(a %>% str_sub(1, 4), a %>% str_sub(5, 9), sep="_")
+	paste(a %>% stringr::str_sub(1, 4), a %>% stringr::str_sub(5, 9), sep="_")
 }
 
 # convert a uniprot entry to a phylip name by just taking the "X" part:  aaXXXX_XXXXXaaa
@@ -40,17 +40,11 @@ make_tree_names <- function(
 	user_agent_arg,
 	verbose=F
 ){
-	if(length(uniprot_entries) != length(ranges)){
-		stop(paste0("The length(uniprot_entry) = ", length(uniprot_entries), " != ", length(ranges), " = length(ranges).\n"))
-	}
-	# make sure the the orginal name order doesn't get disturbed
-	duplicates <- data %>% dplyr::count(uniprot_entry, range) %>% dplyr::filter(n>1)
-	if(duplicates %>% nrow > 0){
-		cat("Warning: the following entries are duplicates.\n")
-		print(duplicates)
-	}
-
-	data <- data %>% dplyr::mutate(index = 1:nrow(data))
+	data <- data %>%
+		assertr::verify("uniprot_entry" %>% exists) %>%
+		assertr::verify("range" %>% exists) %>%
+		assertr::verify(no_duplicates(uniprot_entry, range)) %>%
+		dplyr::mutate(index = 1:nrow(data))
 
 	missing_protein_names <- c(
 		"Uncharacterized protein",
@@ -59,7 +53,7 @@ make_tree_names <- function(
 		"Putative uncharacterized protein")
 
 	new_names <- uniprot_entry_web_lookup(
-		uniprot_entries %>% unique,
+		data$uniprot_entry %>% unique,
 		c("entry name", "genes(PREFERRED)", "organism", "organism-id", "protein names"),
 		user_agent_arg,
 		verbose) %>%
@@ -75,12 +69,12 @@ make_tree_names <- function(
 				organism %>% stringr::str_match("^.[^(]*[(]([^)]*)[)]") %>% magrittr::extract(,2)),
 			protein_name = ifelse(protein_name %in% missing_protein_names, "",
 				protein_name %>%
-					magrittr::str_replace_all("[(]", "[") %>%
-					magrittr::str_replace_all("[)]", "]")))
+					stringr::str_replace_all("[(]", "[") %>%
+					stringr::str_replace_all("[)]", "]")))
 
 	data %>%
 		dplyr::left_join(new_names, by=c("uniprot_entry")) %>%
-		dplyr::mutate(name = paste(
+		dplyr::mutate(tree_name = paste(
 			uniprot_entry, range,
 			gene_symbol,
 			organism, organism_id,

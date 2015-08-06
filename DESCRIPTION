@@ -1,6 +1,6 @@
 Package: Bethany
 Type: Package
-Version 0.0.0.9000
+Version: 0.0.0.9000
 Title: Tools for ancestral gene reconstruction
 Description: Lazarus of Bethany was brought back to life four days
     after his death by Jesus, as described int he Gospel of
@@ -13,9 +13,10 @@ Authors@R: person("Matthew", "O'Meara", email = "mattjomeara@gmail.com",
 URL: http://github.com/momeara/Bethany
 BugReports: https://github.com/momeara/Bethany/issues
 Depends:
-    R (>=3.1.2)
+   R (>= 3.1.2)
 Imports:
     assertthat,
+    assertr,
     plyr,
     dplyr,
     magrittr,

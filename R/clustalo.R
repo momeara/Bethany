@@ -16,7 +16,7 @@ clustalo <- function(
 	input_base <- tempfile()
 
 	if(is.character(fasta)){
-		if(!string::str_detect(fasta, ".fa$") & !stringr::str_detect(fasta, ".fasta$")){
+		if(!stringr::str_detect(fasta, ".fa$") & !stringr::str_detect(fasta, ".fasta$")){
 			cat("WARNING: fasta '", fasta, "', does not end in '.fa' or '.fasta'\n")
 		}
 		fasta_fname <- fasta
