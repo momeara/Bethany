@@ -74,7 +74,7 @@ blastp <- function(
 	if(verbose){
 		cat("Reading in blastp results ... \n")
 	}
-	results <- readr::read_tsv(blastp_results_fname) %>%
+	results <- readr::read_tsv(blastp_results_fname, col_names=F) %>%
 		dplyr::select(
 			ref_target = 1,
 			query_target = 2,
