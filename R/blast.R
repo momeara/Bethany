@@ -27,7 +27,7 @@ blastp <- function(
 		if(verbose){
 			cat("Writing out reference sequences to '", ref_fname, "' ...\n", sep="")
 		}
-		seqinr::write.fasta(ref, ref_fname)
+		seqinr::write.fasta(ref, names(ref), ref_fname)
 	} else if(class(ref) == "character"){
 		ref_fname <- ref
 	} else {
@@ -39,7 +39,7 @@ blastp <- function(
 		if(verbose){
 			cat("Writing out query sequences to '", ref_fname, "' ...\n", sep="")
 		}
-		seqinr::write.fasta(query, query_fname)
+		seqinr::write.fasta(query, names(query), query_fname)
 	} else if(class(query) == "character"){
 		query_fname <- query
 	} else {
