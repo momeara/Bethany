@@ -1,3 +1,14 @@
+#' Blast query sequences against reference sequences
+#'
+#' requires makeblastdb and blastp from blast+ to be on the path
+#'
+#' @param ref list of vector of chars where each element is a sequence object of class SeqFastadna or SeqFastaAA, e.g. what is returned by seqinr::read.fasta
+#' @param query list of vector of chars where each element is a sequence object of class SeqFastadna or SeqFastaAA, e.g. what is returned by seqinr::read.fasta
+#' @param run_id character string used to name temporary files etc.
+#' @param cmd_makeblastdb the command used to make the reference database e.g. makeblastdb from the blast+ package
+#' @param cmd_blastp the command used to blast the queries against the reference sequences e.g. blastp
+#' blastp_num_threads the number of threads to use while running blast
+#' @param verbose write out additional information while executing.
 #' @export
 blastp <- function(
 	ref,
