@@ -37,7 +37,7 @@ blastp <- function(
 	if(class(query) == "list" && all(vapply(query, class, "") == "SeqFastaAA", na.rm=T)){
 		query_fname <- paste0(tmp_base, "/query.fasta")
 		if(verbose){
-			cat("Writing out query sequences to '", ref_fname, "' ...\n", sep="")
+			cat("Writing out query sequences to '", query_fname, "' ...\n", sep="")
 		}
 		seqinr::write.fasta(query, names(query), query_fname)
 	} else if(class(query) == "character"){
