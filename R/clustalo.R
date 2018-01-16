@@ -34,7 +34,7 @@ clustalo <- function(
 		"--MAC-RAM ", shQuote(max_mem), " ",
 		"--verbose ",
 		"--outfmt ", shQuote(output_fmt), " ",
-		"--outfile `", shQuote(output_fname), "` ",
+		"--outfile ", shQuote(output_fname), " ",
 		"--output-order tree-order ",
 		"--seqtype ", shQuote(seqtype))
 	if(force){
