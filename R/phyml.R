@@ -37,7 +37,7 @@ phyml <- function(
 	cmd <- paste0(
     "phyml ",
     "--input ", shQuote(phylip_fname), " ",
-    "--datatype ", (data_type, " ",
+    "--datatype ", data_type, " ",
 		"--model ", model, " ",
 		"--search ", search, " ",
 		"--run_id ", shQuote(run_id), " ",
