@@ -29,7 +29,7 @@ clustalo <- function(
 
 	cmd <- paste0(
     "clustalo ",
-    "--infile ", ssQuote(fasta), " ",
+    "--infile ", shQuote(fasta), " ",
     "--threads ", shQuote(ncores), " ",
 		"--MAC-RAM ", shQuote(max_mem), " ",
 		"--verbose ",
