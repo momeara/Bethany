@@ -12,8 +12,8 @@ sequences_to_tree <- function(
 	run_id,
 	user_agent_arg,
 	sequence_name_to_uniprot_entry = hmmer_fasta_to_uniprot_entry,
-	force=F,
-	verbose=T
+	force=FALSE,
+	verbose=TRUE
 ){
 	output_prefix <- paste(
 		output_path,
@@ -27,7 +27,7 @@ sequences_to_tree <- function(
 			}
 			unlink(output_prefix, recursive=T)
 		} else {
-			stop(paste0("Output path '", output_prefix, "' already exists, if you would like to overwrite it, please use force=True", sep=""))
+			stop(paste0("Output path '", output_prefix, "' already exists, if you would like to overwrite it, please use force=TRUE", sep=""))
 		}
 	}
 

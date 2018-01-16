@@ -13,7 +13,7 @@ readseq <- function(
 		"readseq ",
 		"-informat=", informat, " ",
 		"-format=", format, " ",
-		"-output=", output_fname, " ",
+		"-output=", shQuote(output_fname), " ",
 		input_fname)
 
 	if(!is.null(run_script_fname)){

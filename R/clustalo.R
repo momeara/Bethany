@@ -29,14 +29,14 @@ clustalo <- function(
 
 	cmd <- paste0(
     "clustalo ",
-    "--infile ", fasta, " ",
-    "--threads ", ncores, " ",
-		"--MAC-RAM ", max_mem, " ",
+    "--infile ", ssQuote(fasta), " ",
+    "--threads ", shQuote(ncores), " ",
+		"--MAC-RAM ", shQuote(max_mem), " ",
 		"--verbose ",
-		"--outfmt ", output_fmt, " ",
-		"--outfile ", output_fname, " ",
+		"--outfmt ", shQuote(output_fmt), " ",
+		"--outfile `", shQuote(output_fname), "` ",
 		"--output-order tree-order ",
-		"--seqtype ", seqtype)
+		"--seqtype ", shQuote(seqtype))
 	if(force){
 		cmd <- paste(cmd, "--force")
 	}

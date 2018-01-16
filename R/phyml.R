@@ -36,11 +36,11 @@ phyml <- function(
 
 	cmd <- paste0(
     "phyml ",
-    "--input ", phylip_fname, " ",
-    "--datatype ", data_type, " ",
+    "--input ", shQuote(phylip_fname), " ",
+    "--datatype ", (data_type, " ",
 		"--model ", model, " ",
 		"--search ", search, " ",
-		"--run_id ", run_id, " ",
+		"--run_id ", shQuote(run_id), " ",
 		"--quiet ",
 		"--no_memory_check ")
 

@@ -31,7 +31,7 @@ blastp <- function(
 	} else if(class(ref) == "character"){
 		ref_fname <- ref
 	} else {
-		stop(paste0("Unable to read ref of class '", class(ref), "'. Please make it a list of of SeqFastaAA (e.g. read in with seqinr:::read.fasta), or a path to a fasta file in the file system."))
+		stop(paste0("Unable to read ref of class '", class(ref), "'. Please make it a list of of SeqFastaAA (e.g. read in with seqinr::read.fasta), or a path to a fasta file in the file system."))
 	}
 
 	if(class(query) == "list" && all(vapply(query, class, "") == "SeqFastaAA", na.rm=T)){
@@ -53,7 +53,7 @@ blastp <- function(
 	cmd <- paste0(
 		cmd_makeblastdb,
 		" -dbtype prot",
-		" -in ", ref_fname)
+		" -in ", shQuote(ref_fname))
 	cat(cmd, "\n")
 	system(cmd)
 
@@ -63,11 +63,11 @@ blastp <- function(
 	}
 	cmd <- paste0(
 		cmd_blastp,
-		" -db ", ref_fname,
-		" -query ", query_fname,
+		" -db ", shQuote(ref_fname),
+		" -query ", shQuote(query_fname),
 		" -outfmt \"6 qseqid sseqid bitscore evalue\"",
 		" -num_threads ", blastp_num_threads,
-		" -out ", blastp_results_fname)
+		" -out ", shQuote(blastp_results_fname))
 	cat(cmd, "\n")
 	system(cmd)
 
