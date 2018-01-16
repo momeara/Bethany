@@ -97,7 +97,7 @@ sequences_to_tree <- function(
 		file.out= clustalo_input_fname)
 
 	if(verbose){
-		cat("Generating alignment with Clustal Omega: '", clustalo_input_fname, "' -> '", clustalo_output_fname, "' ... \n")
+		cat("Generating alignment with Clustal Omega: '", clustalo_input_fname, "' -> '", clustalo_output_fname, "' ... \n", sep="")
 		cat("#########################\n")
 	}
 	clustalo(clustalo_input_fname, clustalo_output_fname, run_script_fname)
@@ -140,7 +140,7 @@ sequences_to_tree <- function(
 
 	tree <- ape::read.tree(phyml_output_tree_fname)
 	if(tree %>% is.null){
-		stop(paste0("Failed to generate a phylogeny. Check '", 	output_prefix, "' for output files.\n", sep=""))
+		stop(paste0("Failed to generate a phylogeny. Check '", 	output_prefix, "' for output files.\n"))
 	}
 
 	tree_2 <- tree %>%

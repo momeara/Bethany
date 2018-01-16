@@ -14,7 +14,7 @@ readseq <- function(
 		"-informat=", informat, " ",
 		"-format=", format, " ",
 		"-output=", shQuote(output_fname), " ",
-		input_fname)
+		shQuote(input_fname))
 
 	if(!is.null(run_script_fname)){
 		cat(
