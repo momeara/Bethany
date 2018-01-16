@@ -32,7 +32,7 @@ sequences_to_tree <- function(
 	}
 
 	dir.create(output_prefix, recursive=T)
-	name_map_fname <- paste0(output_prefix, "/name_map.xlsx")
+	name_map_fname <- paste0(output_prefix, "/name_map.tsv")
 	clustalo_input_fname <- paste0(output_prefix, "/clustalo_input.fasta")
 	clustalo_output_fname <- paste0(output_prefix, "/clustalo_output.phylip3.2")
 	phyml_input_fname <- paste0(output_prefix, "/phyml_input.phylip")
@@ -77,7 +77,7 @@ sequences_to_tree <- function(
 		make_tree_names(user_agent_arg, verbose) %>%
 		dplyr::mutate(phylip_name = sequences %>% length %>% generate_phylip_names)
 
-	openxlsx::write.xlsx(name_map, name_map_fname)
+	readr::write_tsv(name_map, name_map_fname)
 
 
 	cat(
