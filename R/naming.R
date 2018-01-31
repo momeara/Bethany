@@ -79,8 +79,8 @@ make_tree_names <- function(
 			gene_symbol,
 			organism, organism_id,
 			protein_name, sep="|")) %>%
-		dplyr::arrange(index) %>%
-		dplyr::distinct(index)
+		dplyr::arrange(index, tree_name) %>%
+		dplyr::distinct(index, .keep_all=TRUE)
 }
 
 

@@ -1,3 +1,6 @@
+# -*- tab-width:2;indent-tabs-mode:t;show-trailing-whitespace:t;rm-trailing-spaces:t -*-
+# vi: set ts=2 noet:
+
 #' Blast query sequences against reference sequences
 #'
 #' requires makeblastdb and blastp from blast+ to be on the path
@@ -22,29 +25,23 @@ blastp <- function(
 	tmp_base <- paste0(tempfile(), "_blastp_", run_id)
 	dir.create(tmp_base)
 
-	if(class(ref) == "list" && all(vapply(ref, class, "") == "SeqFastaAA", na.rm=T)){
-		ref_fname <- paste0(tmp_base, "/ref.fasta")
-		if(verbose){
-			cat("Writing out reference sequences to '", ref_fname, "' ...\n", sep="")
+	prepare_sequences <- function(sequences, type){
+		if(class(sequences) == "list" &&
+			all(vapply(sequences, class, "") == "SeqFastaAA" | vapply(sequences, class, "") == "character", na.rm=T)){
+			fasta_fname <- paste0(tmp_base, "/", type, ".fasta")
+			if(verbose){
+				cat("Writing out ", type, " sequences to '", ref_fname, "' ...\n", sep="")
+			}
+			seqinr::write.fasta(sequences, names(sequences), fasta_fname)
+		} else if(class(sequences) == "character"){
+			fasta_fname <- sequences
+		} else {
+			stop(paste0("Unable to read ", type, " of class '", class(sequences), "'. Please make it a list of of SeqFastaAA (e.g. read in with seqinr::read.fasta), or a path to a fasta file in the file system."))
 		}
-		seqinr::write.fasta(ref, names(ref), ref_fname)
-	} else if(class(ref) == "character"){
-		ref_fname <- ref
-	} else {
-		stop(paste0("Unable to read ref of class '", class(ref), "'. Please make it a list of of SeqFastaAA (e.g. read in with seqinr::read.fasta), or a path to a fasta file in the file system."))
+		fasta_fname
 	}
-
-	if(class(query) == "list" && all(vapply(query, class, "") == "SeqFastaAA", na.rm=T)){
-		query_fname <- paste0(tmp_base, "/query.fasta")
-		if(verbose){
-			cat("Writing out query sequences to '", query_fname, "' ...\n", sep="")
-		}
-		seqinr::write.fasta(query, names(query), query_fname)
-	} else if(class(query) == "character"){
-		query_fname <- query
-	} else {
-		stop(paste0("Unable to read qeury of class '", class(ref), "'. Please make it a list of of SeqFastaAA (e.g. read in with seqinr:::read.fasta), or a path to a fasta file in the file system."))
-	}
+	ref_fname <- prepare_sequences(ref, "ref")
+	query_fname <- prepare_sequences(query, "query")
 
 	### make reference db
 	if(verbose){
@@ -74,11 +71,12 @@ blastp <- function(
 	if(verbose){
 		cat("Reading in blastp results ... \n")
 	}
-	results <- readr::read_tsv(blastp_results_fname, col_names=F) %>%
-		dplyr::select(
-			ref_target = 1,
-			query_target = 2,
-			bit_score = 3,
-			EValue = 4)
-	return(results)
+	readr::read_tsv(
+		file=blastp_results_fname,
+		col_names = c("ref_target", "query_target", "bit_score", "EValue"),
+		col_types=readr::cols(
+			ref_target = readr::col_character(),
+			query_target = readr::col_character(),
+			bit_score = readr::col_double(),
+			EValue = readr::col_double()))
 }

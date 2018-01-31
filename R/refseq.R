@@ -32,5 +32,5 @@ refseq_gene_id_to_protein_sequence <- function(gene_ids){
 	z %>%
 		dplyr::mutate(seq_length = nchar(protein_sequence)) %>%
 		dplyr::arrange(dplyr::desc(seq_length)) %>%
-		dplyr::distinct(gene_id)
+		dplyr::distinct(gene_id, .keep_all=TRUE)
 }
