@@ -74,14 +74,12 @@ sequences_to_tree <- function(
 		cat("Generating phylip and tree names for sequences ... \n")
 	}
 
-#	browser()
   name_map <- sequences %>%
 		seqinr::getName() %>%
 		sequence_name_to_uniprot_entry %>%
 		dplyr::select(uniprot_entry, range) %>%
 		dplyr::mutate(
 			tree_name=uniprot_entry) %>%
-#		make_tree_names(user_agent_arg, verbose) %>%
 		dplyr::mutate(phylip_name = sequences %>% length %>% generate_phylip_names)
 
 	readr::write_tsv(name_map, name_map_fname)
