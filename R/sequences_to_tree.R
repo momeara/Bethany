@@ -57,9 +57,9 @@ sequences_to_tree <- function(
 
 		sequences <- seqinr::read.fasta(sequences_input_fname, "AA")
 	} else if(
-		class(sequences) == list &&
+		class(sequences) == "list" &&
 		length(sequences) > 0 &&
-		class(sequences[[1]]) == "SeqFastaAA"){
+		(class(sequences[[1]]) == "SeqFastaAA" || class(sequences[[1]]) == "character")){
 		sequences_output_fname <- paste0(output_prefix, "/sequences.fa")
 		seqinr::write.fasta(sequences, sequences_output_fname)
 	} else {
