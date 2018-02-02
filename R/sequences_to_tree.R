@@ -56,11 +56,15 @@ sequences_to_tree <- function(
 		}
 
 		sequences <- seqinr::read.fasta(sequences_input_fname, "AA")
-	} else if(class(sequences) == "SeqFastaAA"){
+	} else if(
+		# assume sequences is actually something read in from seqinr::read.fasta
+		class(sequences) == "list" &&
+		length(sequences) > 0 &&
+		class(sequences[[1]]) == "SeqFastaAA"){
 		sequences_output_fname <- paste0(output_prefix, "/sequences.fa")
 		seqinr::write.fasta(
 			sequences=sequences,
-			names=seqinr::getName(sequences),
+			names=names(sequences),
 			file.out=sequences_output_fname)
 	} else {
 		stop(paste0("Unable to handle input sequences of class ", class(sequences), ".\n", sep=""))
