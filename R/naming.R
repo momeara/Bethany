@@ -9,7 +9,9 @@ hmmer_fasta_to_uniprot_entry <- function(fasta_names){
 		as.data.frame(stringsAsFactors=F) %>%
 		dplyr::select(
 			uniprot_entry = V1,
-			range = V2)
+			range = V2) %>%
+		dplyr::mutate(
+			tree_name=uniprot_entry)
 }
 
 

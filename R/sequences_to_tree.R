@@ -11,7 +11,7 @@ sequences_to_tree <- function(
 	output_path,
 	run_id,
 	user_agent_arg,
-	sequence_name_to_uniprot_entry = hmmer_fasta_to_uniprot_entry,
+	sequence_name_to_tree_name = function(x){tibble::data_frame(tree_name=x)},
 	force=FALSE,
 	verbose=TRUE
 ){
@@ -80,10 +80,7 @@ sequences_to_tree <- function(
 
   name_map <- sequences %>%
 		seqinr::getName() %>%
-		sequence_name_to_uniprot_entry %>%
-		dplyr::select(uniprot_entry, range) %>%
-		dplyr::mutate(
-			tree_name=uniprot_entry) %>%
+		sequence_name_to_tree_name() %>%
 		dplyr::mutate(phylip_name = sequences %>% length %>% generate_phylip_names)
 
 	readr::write_tsv(name_map, name_map_fname)
