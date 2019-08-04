@@ -28,8 +28,8 @@ NULL
 #' verify statment.
 #'
 #' Warning: Since this uses \code{\link[base]{duplicated}}, the columns
-#' are pasted together with '\t', this will fail if any of the
-#' specified columns contain '\t' characters.
+#' are pasted together with '\\t', this will fail if any of the
+#' specified columns contain '\\t' characters.
 #'
 #' @param ... columns from the data.frame
 #' @return A vector of the same length that is TRUE when the values in

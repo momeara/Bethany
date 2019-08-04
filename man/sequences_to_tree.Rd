@@ -6,8 +6,8 @@
 seqinr AA file and generating a newick tree}
 \usage{
 sequences_to_tree(sequences, output_path, run_id, user_agent_arg,
-  sequence_name_to_uniprot_entry = hmmer_fasta_to_uniprot_entry,
-  force = FALSE, verbose = TRUE)
+  sequence_name_to_tree_name = function(x) {    
+  tibble::data_frame(tree_name = x) }, force = FALSE, verbose = TRUE)
 }
 \description{
 This is the full pipeline taking path to a fasta sequence or a

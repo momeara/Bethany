@@ -22,8 +22,8 @@ verify statment.
 }
 \details{
 Warning: Since this uses \code{\link[base]{duplicated}}, the columns
-are pasted together with '\t', this will fail if any of the
-specified columns contain '\t' characters.
+are pasted together with '\\t', this will fail if any of the
+specified columns contain '\\t' characters.
 }
 \examples{
 z <- data.frame(a=c(1,2,3,4,5,6), b=c(1,1,1,3,3,3), c=c(1,2,3,1,2,3))

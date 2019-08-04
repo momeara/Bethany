@@ -9,7 +9,7 @@ clustalo <- function(
 	run_script_fname = NULL,
 	ncores=18,
 	max_mem=10000,
-	output_fmt="phylip",
+	output_fmt="fasta",
 	seqtype="protein",
 	force=F
 ){

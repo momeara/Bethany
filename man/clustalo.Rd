@@ -5,7 +5,7 @@
 \title{Run clustal omega}
 \usage{
 clustalo(fasta, output_fname, run_script_fname = NULL, ncores = 18,
-  max_mem = 10000, output_fmt = "phylip", seqtype = "protein",
+  max_mem = 10000, output_fmt = "fasta", seqtype = "protein",
   force = F)
 }
 \description{

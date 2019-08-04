@@ -5,7 +5,7 @@
 \title{Run readseq}
 \usage{
 readseq(input_fname, output_fname, run_script_fname = NULL,
-  informat = "Phylip3.2", format = "Phylip4")
+  informat = "fasta", format = "Phylip4")
 }
 \description{
 Run readseq

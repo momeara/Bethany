@@ -99,5 +99,51 @@ uniprot_entry_full <- function(
 	z
 }
 
+#' @export
+uniprot_entry_fasta <- function(
+	uniprot_entries,
+	user_agent_arg
+){
+	uniprot_entries_fname <- tempfile()
+	write.table(uniprot_entries, uniprot_entries_fname, quote=F, col.names=F, row.names=F, sep="")
+	uniprot_entries_f <- httr::upload_file(uniprot_entries_fname, type="text/plain")
+	z <- httr::POST(
+		"http://www.uniprot.org/uniprot/",
+		user_agent_arg,
+		body=list(
+			file = uniprot_entries_f,
+			format='fasta')) %>%
+		httr::content %>%
+		stringr::str_split("//\n")
+	file.remove(uniprot_entries_fname)
+	z
+}
+
+
+uniprot_entry_fasta <- function(
+	uniprot_entries,
+	verbose=FALSE
+){
+	uniprot_entries %>%
+		purrr::map_dfr(
+			function(uniprot_entry){
+				if(verbose){
+					cat("Getting FASTA file for '", uniprot_entry, "'\n", sep="")
+				}
+				fasta <- httr::GET(
+					"http://www.uniprot.org/uniprot/",
+					query=list(
+						query=uniprot_entry,
+						format='fasta')) %>%
+					httr::content() %>%
+					stringr::str_split("//\n") %>%
+					magrittr::extract2(1)
+				tibble::tibble(uniprot_entry=uniprot_entry, fasta=fasta)
+			})
+}
+
+
+
+
 
 

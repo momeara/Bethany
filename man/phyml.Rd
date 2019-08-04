@@ -4,9 +4,9 @@
 \alias{phyml}
 \title{Run phyml}
 \usage{
-phyml(phylip, run_id = NULL, run_script_fname = NULL, data_type = "aa",
-  model = "LG", search = "NNI", ncores = 18, max_mem = 10000,
-  output_fmt = "phylip", seqtype = "protein")
+phyml(phylip, run_id = NULL, run_script_fname = NULL,
+  data_type = "aa", model = "LG", search = "NNI", ncores = 18,
+  max_mem = 10000, output_fmt = "phylip", seqtype = "protein")
 }
 \description{
 Run phyml

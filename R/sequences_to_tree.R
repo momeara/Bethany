@@ -34,7 +34,7 @@ sequences_to_tree <- function(
 	dir.create(output_prefix, recursive=T)
 	name_map_fname <- paste0(output_prefix, "/name_map.tsv")
 	clustalo_input_fname <- paste0(output_prefix, "/clustalo_input.fasta")
-	clustalo_output_fname <- paste0(output_prefix, "/clustalo_output.phylip3.2")
+	clustalo_output_fname <- paste0(output_prefix, "/clustalo_output.fasta")
 	phyml_input_fname <- paste0(output_prefix, "/phyml_input.phylip")
 	phyml_output_tree_fname <- paste0(phyml_input_fname, "_phyml_tree_", run_id, ".txt")
 	output_tree_fname <- paste0(output_prefix, "/", run_id, ".newick")
@@ -113,14 +113,14 @@ sequences_to_tree <- function(
 	}
 
 	if(verbose){
-		cat("Converting Clustal Omeaga output from phylip3.2 to phylip4 format: '", phyml_input_fname, "' ...\n", sep="")
+		cat("Converting Clustal Omeaga output from fasta to phylip4 format: '", phyml_input_fname, "' ...\n", sep="")
 		cat("#########################\n")
 	}
 	readseq(
 		clustalo_output_fname,
 		phyml_input_fname,
 		run_script_fname = run_script_fname,
-		informat="Phylip3.2",
+		informat="fasta",
 		format="Phylip4")
 	if(verbose){
 		cat("#########################\n")

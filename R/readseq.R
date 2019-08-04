@@ -7,7 +7,7 @@ readseq <- function(
 	input_fname,
 	output_fname,
 	run_script_fname = NULL,
-	informat="Phylip3.2", format="Phylip4"
+	informat="fasta", format="Phylip4"
 ){
 	cmd <- paste0(
 		"readseq ",
